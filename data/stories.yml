@@ -1,0 +1,85 @@
+version: "3.1"
+
+stories:
+  - story: resume upload and processing
+    steps:
+      - intent: upload_resume
+      - action: utter_ask_resume_text
+      - intent: provide_resume_text
+      - action: action_extract_resume_info  
+      - action: action_ask_correction
+  - story: resume upload, denial, correction
+    steps:
+      - intent: provide_resume_text
+      - action: action_extract_resume_info
+      - action: action_ask_correction
+      - intent: deny
+      - action: utter_apologize
+      - action: utter_ask_which_update
+      - intent: correct_entity
+      - action: action_update_entity
+      - action: action_show_updated_info
+      - action: action_ask_correction
+      - intent: confirm
+      - action: action_summarize_info
+      - action: utter_anything_else
+        
+  - story: direct correction after extraction
+    steps:
+      - action: action_extract_resume_info
+      - action: action_ask_correction
+      - intent: correct_entity
+      - action: action_update_entity
+      - action: action_show_updated_info
+      - action: action_ask_correction
+      - intent: confirm
+      - action: action_summarize_info
+      - action: utter_anything_else
+      
+  - story: multiple corrections
+    steps:
+      - action: action_extract_resume_info
+      - action: action_ask_correction
+      - intent: correct_entity
+      - action: action_update_entity
+      - action: action_show_updated_info
+      - action: action_ask_correction
+      - intent: correct_entity
+      - action: action_update_entity
+      - action: action_show_updated_info
+      - action: action_ask_correction
+      - intent: confirm
+      - action: action_summarize_info
+      - action: utter_anything_else
+        
+  - story: ask capabilities and then upload
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_capabilities
+      - action: utter_capabilities
+      - intent: upload_resume
+      - action: utter_ask_resume_text
+      - intent: provide_resume_text
+      - action: action_extract_resume_info
+      - action: action_ask_correction
+
+  - story: user is upset
+    steps:
+      - intent: upset
+      - action: utter_apologize
+      - action: utter_ask_which_update
+      
+  # UPDATED: Make this story match the rule exactly
+  - story: user requests debug info
+    steps:
+      - intent: provide_information
+      - action: action_debug_info
+      - action: action_ask_correction
+      
+  - story: greet and goodbye
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: goodbye
+      - action: utter_goodbye

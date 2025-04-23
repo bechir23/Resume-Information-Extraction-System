@@ -1,0 +1,1 @@
+﻿# Resume NER custom component

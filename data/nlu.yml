@@ -1,0 +1,156 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - good morning
+      - good evening
+      - hey there
+      - greetings
+      - what's up
+      - howdy
+
+  - intent: goodbye
+    examples: |
+      - bye
+      - goodbye
+      - see you later
+      - bye bye
+      - have a good day
+      - take care
+      - exit
+      - quit
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+      - that's right
+      - yep
+      - yeah
+      - absolutely
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - no way
+      - not really
+      - nope
+      - that's not right
+      - that's incorrect
+      - it's wrong
+      - there's an error
+
+  - intent: confirm
+    examples: |
+      - yes that's correct
+      - that's right
+      - correct
+      - looks good
+      - all good
+      - perfect
+      - the information is correct
+      - everything looks right
+      - that's all correct
+      - yes it's all correct
+
+  - intent: upload_resume
+    examples: |
+      - I want to upload my resume
+      - Can you analyze my resume
+      - I'd like you to look at my CV
+      - Can you parse my resume
+      - I want to extract info from my resume
+      - Review my resume please
+      - Parse my resume
+      - Check my CV
+      - Extract my resume information
+      - Analyze my CV
+
+  - intent: provide_resume_text
+    examples: |
+      - [John Doe Software Engineer john.doe@example.com](resume_text)
+      - [My name is Jane Smith](resume_text)
+      - [I worked at Google for 5 years](resume_text)
+      - [I have experience with Python and Java](resume_text)
+      - [I graduated from MIT with a Computer Science degree](resume_text)
+      - My resume is the following
+      - Here is my resume
+      - This is my resume text
+      - These are my resume details
+      - Let me give you my resume
+
+  - intent: ask_capabilities
+    examples: |
+      - what can you do
+      - how can you help me
+      - what are your capabilities
+      - what features do you have
+      - tell me what you can do
+      - what do you do
+      - how does this work
+      - explain what you do
+      - how can you assist me
+
+  - intent: correct_entity
+    examples: |
+      - my [name](entity_type) is [Aymen](name)
+      - my [location](entity_type) is [Tamil Nadu](location)
+      - my [email](entity_type) is [aymen@example.com](email)
+      - my [skills](entity_type) are [Python](skills), [COBOL](skills) and [Java](skills)
+      - my [companies](entity_type) are [Infosys](companies) and [SAP Labs](companies)
+      - my [degree](entity_type) is [B.E](degree)
+      - my [college](entity_type) is [Panimalar Engineering College](college)
+      - my [designation](entity_type) is [Consultant](designation)
+      - change my [name](entity_type) to [Shaheen Unissa](name)
+      - update my [location](entity_type) to [Hyderabad](location)
+      - my [name](entity_type) is [Dilliraja Baskaran](name) and my [location](entity_type) is [Cuddapah](location)
+      - my [skills](entity_type) include [Mainframe](skills)
+      - my [companies](entity_type) should be [SAP](companies)
+      - please update my [college](entity_type) to [JAWAHARLAL NEHRU TECHNOLOGICAL UNIVERSITY](college)
+      - I work at [Infosys](companies)
+      - I'm a [DEVOPS ADMINISTRATOR](designation)
+      - I know [Python](skills), [JCL](skills)
+      - my [name](entity_type) is [Koushik Katta](name)
+
+  - intent: provide_information
+    examples: |
+      - show me what you have
+      - debug info
+      - what information do you have
+      - show all my data
+      - what do you know about me
+      - display all extracted info
+      - what have you extracted
+      - show my information
+      - display current data
+
+  - intent: extract_information
+    examples: |
+      - can you show me the extracted information
+      - what did you extract from my resume
+      - show the extraction results
+      - summarize what you found
+      - what information did you get
+      - what did you find in my resume
+
+  - intent: upset
+    examples: |
+      - this isn't working
+      - you're not helpful
+      - this is frustrating
+      - you don't understand
+      - this is not correct
+      - you're getting it all wrong
+      - this is annoying
+      - you're not working properly

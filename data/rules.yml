@@ -1,0 +1,65 @@
+version: "3.1"
+
+rules:
+  - rule: Respond to greeting
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  - rule: Say goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Respond to capability question
+    steps:
+      - intent: ask_capabilities
+      - action: utter_capabilities
+
+  - rule: Handle resume upload intent
+    steps:
+      - intent: upload_resume
+      - action: utter_ask_resume_text
+
+  - rule: Process resume when provided
+    steps:
+      - intent: provide_resume_text
+      - action: action_extract_resume_info
+      - action: action_ask_correction
+
+  - rule: Correction denied, ask for update
+    steps:
+      - intent: deny
+      - action: utter_apologize
+      - action: utter_ask_which_update
+
+  - rule: Update entity/entities
+    steps:
+      - intent: correct_entity
+      - action: action_update_entity
+      - action: action_show_updated_info
+      - action: action_ask_correction
+
+  - rule: Respond to upset users
+    steps:
+      - intent: upset
+      - action: utter_apologize
+      - action: utter_ask_which_update
+
+  - rule: Show debug info
+    steps:
+      - intent: provide_information
+      - action: action_debug_info
+      - action: action_ask_correction
+    wait_for_user_input: false
+
+  - rule: Summarize after confirmation
+    steps:
+      - intent: confirm
+      - action: action_summarize_info
+      - action: utter_anything_else
+
+  - rule: Fallback for unrecognized input
+    steps:
+      - intent: nlu_fallback
+      - action: utter_update_example
