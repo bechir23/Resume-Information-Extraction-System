@@ -1,0 +1,144 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - confirm
+  - upload_resume
+  - provide_resume_text
+  - provide_information
+  - extract_information
+  - correct_entity
+  - ask_capabilities
+  - upset
+
+entities:
+  - Location
+  - Email Address
+  - Designation
+  - Companies worked at
+  - Degree
+  - Skills
+  - College Name
+  - entity_type
+  - name
+  - email
+  - location
+  - companies
+  - skills
+  - degree
+  - college
+  - designation
+
+slots:
+  name:
+    type: text
+    mappings:
+    - type: custom
+  email:
+    type: text
+    mappings:
+    - type: custom
+  phone:
+    type: text
+    mappings:
+    - type: custom
+  skills:
+    type: list
+    mappings:
+    - type: custom
+  education:
+    type: list
+    mappings:
+    - type: custom
+  experience:
+    type: list
+    mappings:
+    - type: custom
+  location:
+    type: text
+    mappings:
+    - type: custom
+  resume_text:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_text
+  degree:
+    type: text
+    mappings:
+    - type: custom
+  college:
+    type: text
+    mappings:
+    - type: custom
+  companies:
+    type: list
+    mappings:
+    - type: custom
+  designation:
+    type: text
+    mappings:
+    - type: custom
+
+responses:
+  utter_greet:
+  - text: "Hello! I'm a resume assistant. I can help extract information from your resume. Would you like to paste your resume text?"
+
+  utter_goodbye:
+  - text: "Goodbye! Feel free to return if you need help with your resume."
+
+  utter_ask_resume_text:
+  - text: "Please paste your resume text or a section of your resume."
+
+  utter_confirm_extraction:
+  - text: "Is this information correct?"
+
+  utter_capabilities:
+  - text: "I can extract information from your resume such as your name, email, skills, education, and experience. Just paste your resume text and I'll analyze it for you."
+
+  utter_apologize:
+  - text: "I apologize for the confusion. Let me try to fix that."
+
+  utter_default:
+    - text: "I'm sorry, I didn't understand that. You can ask me to parse your resume, or ask about my capabilities."
+    - text: "I didn't quite get that. Would you like to upload a resume for analysis?"
+  
+  utter_thank_you:
+    - text: "Thank you! I've updated that information."
+
+  utter_ask_which_update:
+    - text: |
+        Please tell me what you'd like to update. For example:
+        - "My name is Aymen"
+        - "My location is Tamil Nadu"
+        - "My companies are Infosys and SAP Labs"
+        - "My skills are Python, COBOL"
+        - "My degree is B.E"
+        - "My college is Panimalar Engineering College"
+        
+        You can update multiple fields at once, or one by one.
+
+  utter_anything_else:
+    - text: "Is there anything else I can help you with?"
+
+  utter_update_example:
+    - text: |
+        I'm not sure what you want to update. You can say things like:
+        - "My name is John Doe"
+        - "My location is Hyderabad"
+        - "My skills are Python and Java"
+
+actions:
+  - action_extract_resume_info
+  - action_summarize_info
+  - action_update_entity
+  - action_ask_correction
+  - action_debug_info
+  - action_show_updated_info
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

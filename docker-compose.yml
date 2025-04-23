@@ -1,0 +1,39 @@
+version: '3.0'
+services:
+  rasa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./:/app
+      - ./models:/app/models
+      - ./custom_components:/app/custom_components
+    command: run --enable-api --cors "*" --endpoints endpoints.yml --debug
+    depends_on:
+      - actions
+
+  actions:
+    build:
+      context: .
+      dockerfile: Dockerfile.actions  # Use the actions Dockerfile in the root directory
+    ports:
+      - "5055:5055"
+    volumes:
+      - ./actions:/app/actions
+      - ./custom_components:/app/custom_components
+      - ./models:/app/models
+    environment:
+      - PYTHONPATH=/app
+    command: start --actions actions --debug
+
+  web:
+    build: 
+      context: ./web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./web:/app
+    depends_on:
+      - rasa
