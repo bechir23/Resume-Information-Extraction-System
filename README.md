@@ -140,11 +140,9 @@ for ent in doc.ents:
 - All data cleaning, augmentation, and analysis functions are available in `nlp_utils/` for reuse.
 
 ---
-
-## Visual Demo
+## UI Snapshot (from Web Interface)
 
 ![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/d34ee498-6455-4e0a-bc94-e2d4168292e9)
-(web/static/rasa_resume_web_demo.png)
 
 ---
 
