@@ -143,8 +143,8 @@ for ent in doc.ents:
 
 ## Visual Demo
 
-![Web UI Screenshot](web/static/rasa_resume_web_demo.png)
-*Add your screenshot of the running web UI here.*
+![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/d34ee498-6455-4e0a-bc94-e2d4168292e9)
+(web/static/rasa_resume_web_demo.png)
 
 ---
 
