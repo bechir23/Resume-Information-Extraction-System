@@ -1,4 +1,3 @@
-![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/b13c4ee3-d480-49e0-b80c-f31cefc67a66)
 # Resume Information Extraction System
 
 A robust resume parsing and information extraction system using spaCy NER, advanced data analysis, visualization, and data augmentation, with Rasa conversational AI for interactive correction and ranking.
