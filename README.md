@@ -1,3 +1,4 @@
+![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/b13c4ee3-d480-49e0-b80c-f31cefc67a66)
 # Resume Information Extraction System
 
 A robust resume parsing and information extraction system using spaCy NER, advanced data analysis, visualization, and data augmentation, with Rasa conversational AI for interactive correction and ranking.
@@ -143,7 +144,8 @@ for ent in doc.ents:
 
 ## Visual Demo
 
-![Web UI Screenshot](web/static/rasa_resume_web_demo.png)
+![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/525d0ad2-d371-432a-b404-fdd20bf37f91)
+ot]
 
 ---
 
