@@ -1,6 +1,6 @@
 # Resume Information Extraction System
 
-A robust resume parsing and information extraction system using Rasa (Dockerized) and spaCy NER, with custom regex rules, advanced data analysis, visualization, and data augmentation for high-accuracy entity extraction.
+A robust resume parsing and information extraction system using spaCy NER, advanced data analysis, visualization, and data augmentation, with Rasa conversational AI for interactive correction and ranking.
 
 ---
 
@@ -40,16 +40,7 @@ rasa_bot/
 
 ## Quickstart
 
-### 1. Build and Start Rasa (Docker)
-
-```shell
-docker build -t custom-rasa-with-spacy .
-docker-compose run --rm rasa train
-docker-compose build web
-docker-compose up
-```
-
-### 2. Install Python Dependencies (for NER/augmentation/analysis)
+### 1. Install Python Dependencies (for NER/augmentation/analysis)
 
 ```shell
 pip install -r requirements.txt
@@ -58,12 +49,12 @@ pip install spacy-transformers
 # Do NOT install rasa here; it's handled by Docker!
 ```
 
-### 3. Prepare Data
+### 2. Prepare Data
 
 - Place your resume files (PDF, DOCX, images) in `resume_system_data/raw_data/`.
 - Run the notebook (`nlp-data.ipynb`) or scripts in `nlp_utils/` to parse, clean, and preprocess resumes.
 
-### 4. Data Analysis & Visualization
+### 3. Data Analysis & Visualization
 
 - Use the notebook or `nlp_utils/entity_analysis.py` to analyze entity statistics, visualize entity lengths, and explore entity patterns.
 - Example:
@@ -74,7 +65,7 @@ visualize_entity_lengths(stats)
 ```
 - Visualizations and co-occurrence graphs are generated and saved as PNGs for easy inspection.
 
-### 5. Data Augmentation
+### 4. Data Augmentation
 
 - Use the augmentation pipeline to balance and enrich your NER data:
 ```python
@@ -83,7 +74,7 @@ augmented_result = create_balanced_augmentation(result_dict)
 ```
 - This will generate new `.spacy` files and JSONs for training.
 
-### 6. Train the NER Model
+### 5. Train the NER Model
 
 #### Tok2Vec Model
 
@@ -97,10 +88,19 @@ python -m spacy train models/resume_model/config_tok2vec.cfg --output models/tok
 python -m spacy train models/resume_model/config_transformer.cfg --output models/transformer --gpu-id 0
 ```
 
-### 7. Evaluate Model
+### 6. Evaluate Model
 
 ```shell
 python -m spacy benchmark accuracy models/tok2vec/model-best dev.spacy --output metrics.json --gpu-id 0
+```
+
+### 7. Build and Start Rasa (Docker)
+
+```shell
+docker build -t custom-rasa-with-spacy .
+docker-compose run --rm rasa train
+docker-compose build web
+docker-compose up
 ```
 
 ---
@@ -140,9 +140,10 @@ for ent in doc.ents:
 - All data cleaning, augmentation, and analysis functions are available in `nlp_utils/` for reuse.
 
 ---
-## UI Snapshot (from Web Interface)
 
-![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/d34ee498-6455-4e0a-bc94-e2d4168292e9)
+## Visual Demo
+
+![Web UI Screenshot](web/static/rasa_resume_web_demo.png)
 
 ---
 
