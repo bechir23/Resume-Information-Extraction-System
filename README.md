@@ -1,15 +1,17 @@
 # Resume Information Extraction System
 
-A robust resume parsing and information extraction system using Rasa conversational AI and spaCy NER, with custom regex rules and advanced data augmentation for high-accuracy entity extraction.
+A robust resume parsing and information extraction system using Rasa (Dockerized) and spaCy NER, with custom regex rules, advanced data analysis, visualization, and data augmentation for high-accuracy entity extraction.
 
 ---
 
 ## Features
 
 - **Dual-phase extraction:** Combines spaCy NER models with custom regex rules.
-- **Interactive correction:** Users can modify extracted information via natural language.
+- **Interactive correction:** Users can modify extracted information via natural language in the web UI.
 - **Automatic ranking:** Scores and ranks resumes against job requirements.
-- **Context optimized:** Special handling for  names, companies, and locations.
+- **Context optimized:** Special handling for names, companies, and locations.
+- **Data analysis & visualization:** Built-in tools for entity statistics, pattern analysis, and visualizations.
+- **Advanced augmentation:** Targeted and balanced augmentation pipeline to boost recall and precision.
 
 ---
 
@@ -21,6 +23,7 @@ rasa_bot/
 ├── custom_components/
 ├── data/
 ├── models/
+├── nlp_utils/
 ├── web/
 ├── config.yml
 ├── credentials.yml
@@ -28,6 +31,8 @@ rasa_bot/
 ├── endpoints.yml
 ├── Dockerfile
 ├── docker-compose.yml
+├── requirements.txt
+├── run_nlp_pipeline.sh
 └── test.py
 ```
 
@@ -35,35 +40,64 @@ rasa_bot/
 
 ## Quickstart
 
-### 1. Install Dependencies
+### 1. Build and Start Rasa (Docker)
+
+```shell
+docker build -t custom-rasa-with-spacy .
+docker-compose run --rm rasa train
+docker-compose build web
+docker-compose up
+```
+
+### 2. Install Python Dependencies (for NER/augmentation/analysis)
 
 ```shell
 pip install -r requirements.txt
 python -m spacy download en_core_web_md
 pip install spacy-transformers
-pip install rasa
+# Do NOT install rasa here; it's handled by Docker!
 ```
 
-### 2. Prepare Data
+### 3. Prepare Data
 
 - Place your resume files (PDF, DOCX, images) in `resume_system_data/raw_data/`.
-- Run the notebook or scripts to parse and preprocess resumes.
+- Run the notebook (`nlp-data.ipynb`) or scripts in `nlp_utils/` to parse, clean, and preprocess resumes.
 
-### 3. Train the NER Model
+### 4. Data Analysis & Visualization
+
+- Use the notebook or `nlp_utils/entity_analysis.py` to analyze entity statistics, visualize entity lengths, and explore entity patterns.
+- Example:
+```python
+from nlp_utils.entity_analysis import analyze_entity_statistics, visualize_entity_lengths
+stats = analyze_entity_statistics(all_data)
+visualize_entity_lengths(stats)
+```
+- Visualizations and co-occurrence graphs are generated and saved as PNGs for easy inspection.
+
+### 5. Data Augmentation
+
+- Use the augmentation pipeline to balance and enrich your NER data:
+```python
+from nlp_utils.augmentation import create_balanced_augmentation
+augmented_result = create_balanced_augmentation(result_dict)
+```
+- This will generate new `.spacy` files and JSONs for training.
+
+### 6. Train the NER Model
 
 #### Tok2Vec Model
 
 ```shell
-python -m spacy train config_tok2vec.cfg --output ./models/tok2vec --gpu-id 0
+python -m spacy train models/resume_model/config_tok2vec.cfg --output models/tok2vec --gpu-id 0
 ```
 
 #### Transformer Model
 
 ```shell
-python -m spacy train config_transformer_jupyter.cfg --output ./models/transformer --gpu-id 0
+python -m spacy train models/resume_model/config_transformer.cfg --output models/transformer --gpu-id 0
 ```
 
-### 4. Evaluate Model
+### 7. Evaluate Model
 
 ```shell
 python -m spacy benchmark accuracy models/tok2vec/model-best dev.spacy --output metrics.json --gpu-id 0
@@ -73,24 +107,13 @@ python -m spacy benchmark accuracy models/tok2vec/model-best dev.spacy --output 
 
 ## Custom Rasa Component
 
-To use the trained spaCy NER model in Rasa, add the custom component in your pipeline:
+To use the trained spaCy NER model in Rasa, add the custom component in your pipeline (`config.yml`):
 
 ```yaml
 pipeline:
   - name: WhitespaceTokenizer
-  - name: custom_components.ResumeNERComponent
+  - name: custom_components.resume_ner.ResumeNER
     model_path: "./models/model-best"
-```
-
----
-
-## Data Augmentation
-
-To improve recall and precision, run the augmentation pipeline:
-
-```python
-# In your notebook or script
-augmented_result = create_balanced_augmentation(result_dict)
 ```
 
 ---
@@ -114,6 +137,14 @@ for ent in doc.ents:
 - For best results, use resumes in English and ensure clear section headers.
 - The system is optimized for Indian names, companies, and locations.
 - Use the web interface in `web/` for interactive correction and feedback.
+- All data cleaning, augmentation, and analysis functions are available in `nlp_utils/` for reuse.
+
+---
+
+## Visual Demo
+
+![Web UI Screenshot](web/static/rasa_resume_web_demo.png)
+*Add your screenshot of the running web UI here.*
 
 ---
 
