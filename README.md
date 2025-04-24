@@ -9,7 +9,7 @@ A robust resume parsing and information extraction system using Rasa conversatio
 - **Dual-phase extraction:** Combines spaCy NER models with custom regex rules.
 - **Interactive correction:** Users can modify extracted information via natural language.
 - **Automatic ranking:** Scores and ranks resumes against job requirements.
-- **Indian context optimized:** Special handling for Indian names, companies, and locations.
+- **Context optimized:** Special handling for  names, companies, and locations.
 
 ---
 
@@ -21,7 +21,6 @@ rasa_bot/
 ├── custom_components/
 ├── data/
 ├── models/
-├── Resume-Information-Extraction-System/
 ├── web/
 ├── config.yml
 ├── credentials.yml
