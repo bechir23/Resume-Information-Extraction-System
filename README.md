@@ -145,7 +145,7 @@ for ent in doc.ents:
 ## Visual Demo
 
 ![Screenshot 2025-04-23 200226](https://github.com/user-attachments/assets/525d0ad2-d371-432a-b404-fdd20bf37f91)
-ot]
+
 
 ---
 
