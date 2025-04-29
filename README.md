@@ -152,12 +152,4 @@ for ent in doc.ents:
 
 - [spaCy Documentation](https://spacy.io/)
 - [Rasa Documentation](https://rasa.com/docs/)
-- [Project Paper/Blog](#) <!-- Add link if available -->
 
----
-
-## License
-
-MIT License
-
----
